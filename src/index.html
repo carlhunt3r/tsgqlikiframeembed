@@ -20,7 +20,7 @@
         const APPID = 'a96ef7c5-e2aa-4646-8a88-024340b56976';
         const SHEETID = '8a6f9340-e824-4dfb-915a-a93c67e53b70';
         const IDENTITY = 'ID123';
-        let FILTER1 = 'MARC';
+        //let FILTER1 = 'MARC';
 
         //    MAIN
 
@@ -30,14 +30,26 @@
 
             let params = new URL(document.location).searchParams;
             FILTER1 = params.get("FILTER1"); 
-            console.log(FILTER1)
 
+            FILTERBY = 'Customer%20Name';
+            console.log(FILTERBY);
+            console.log(FILTER1);
+
+            if(FILTER1== null) 
+            {
+              console.log("Filter not set - use default")
+            } else
+            {
+              console.log("Filter is set, filtering Qlik app")
+            }
 
 
             const [session, enigmaApp] = await connectEnigma(qcsHeaders, APPID, IDENTITY);
             handleDisconnect(session);
             const theme = await getTheme(enigmaApp);
-            renderSingleIframe('qlik_frame', APPID, SHEETID, theme, IDENTITY);
+
+            renderSingleIframe('qlik_frame', APPID, SHEETID, theme, IDENTITY, FILTERBY, FILTER1);
+
             const message = 'Session will be automatically closed in 15 seconds to showcase the handling.';
             document.getElementById('message').innerHTML = message; // remove this after testing
             setTimeout(() => { // remove this after testing
@@ -176,8 +188,8 @@
 
         //    HELPER FUNCTION TO GENERATE IFRAME
 
-        function renderSingleIframe(frameId, appId, sheetId, theme, identity) {
-            const frameUrl = `https://${TENANT}/single/?appid=${appId}&sheet=${sheetId}&theme=${theme}&identity=${identity}&opt=ctxmenu,currsel&select=$::Customer%20Name,${FILTER1}`;
+        function renderSingleIframe(frameId, appId, sheetId, theme, identity, filter, filterby) {
+            const frameUrl = `https://${TENANT}/single/?appid=${appId}&sheet=${sheetId}&theme=${theme}&identity=${identity}&opt=ctxmenu,currsel&select=$::${filter},${filterby}`;
             document.getElementById(frameId).setAttribute('src', frameUrl); // replace with own handling
         }
 
