@@ -20,6 +20,7 @@
         const APPID = 'a96ef7c5-e2aa-4646-8a88-024340b56976';
         const SHEETID = '8a6f9340-e824-4dfb-915a-a93c67e53b70';
         const IDENTITY = 'ID123';
+        const FILTER1 = 'MARC'
 
         //    MAIN
 
@@ -28,8 +29,8 @@
             const qcsHeaders = await getQCSHeaders();
 
             let params = new URL(document.location).searchParams;
-            let filter1 = params.get("FILTER1"); 
-            console.log(filter1)
+            FILTER1 = params.get("FILTER1"); 
+            console.log(FILTER1)
 
 
 
@@ -176,7 +177,7 @@
         //    HELPER FUNCTION TO GENERATE IFRAME
 
         function renderSingleIframe(frameId, appId, sheetId, theme, identity) {
-            const frameUrl = `https://${TENANT}/single/?appid=${appId}&sheet=${sheetId}&theme=${theme}&identity=${identity}&opt=ctxmenu,currsel`;
+            const frameUrl = `https://${TENANT}/single/?appid=${appId}&sheet=${sheetId}&theme=${theme}&identity=${identity}&opt=ctxmenu,currsel&select=$::Customer%20Name,${FILTER1}`;
             document.getElementById(frameId).setAttribute('src', frameUrl); // replace with own handling
         }
 
