@@ -26,6 +26,13 @@
         (async function main() {
             const isLoggedIn = await qlikLogin();
             const qcsHeaders = await getQCSHeaders();
+
+            let params = new URL(document.location).searchParams;
+            let filter1 = params.get("FILTER1"); 
+            console.log(filter1)
+
+
+
             const [session, enigmaApp] = await connectEnigma(qcsHeaders, APPID, IDENTITY);
             handleDisconnect(session);
             const theme = await getTheme(enigmaApp);
