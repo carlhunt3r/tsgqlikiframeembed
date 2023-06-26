@@ -30,8 +30,9 @@
 
             let params = new URL(document.location).searchParams;
             FILTER1 = params.get("FILTER1"); 
+            FILTERFIELD1 = params.get("FILTERFIELD1");
 
-            FILTERBY = 'Customer%20Name';
+            FILTERBY =  FILTERFIELD1; //'Customer%20Name';
             console.log(FILTERBY);
             console.log(FILTER1);
 
