@@ -6,7 +6,7 @@
 </head>
 
 <body>
-
+    <div id="selectionbar" style="height:50px;">
     <div id="sheet" style="height:800px;">
 
     </div>
@@ -160,8 +160,12 @@
 
                 	//get a field reference and clear the field selection
                 var lastNameField = app.field(appfield);
-                lastNameField.clear();
+                var selState = app.selectionState();
+                selState.clearAll(true);
+
                 lastNameField.selectValues([appselection], true, true);
+                
+                app.getObject("selectionbar","CurrentSelections");
 
 
 
