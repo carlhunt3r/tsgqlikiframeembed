@@ -18,7 +18,7 @@
         const WEBINTEGRATIONID = 'xDOabl1kUVU-kN8f-hOvlccZ3UNaFzkY';
         const APPID = 'a96ef7c5-e2aa-4646-8a88-024340b56976';
         const SHEETID = '8a6f9340-e824-4dfb-915a-a93c67e53b70';
-        const IDENTITY = 'ID123';
+        const IDENTITY = 'ID123ABC';
 
 
         //    DEFAULT PLACEMENT CONFIGURATION
@@ -29,9 +29,40 @@
         //    MAIN
 
         (async function main() {
+
+            let params = new URL(document.location).searchParams;
+            FILTER1 = params.get("FILTER1"); 
+            FILTERFIELD1 = params.get("FILTERFIELD1");
+
+            //FILTERBY =  FILTERFIELD1; 
+            //FILTERFIELD1 = 'Customer%20Name';
+            
+            if(FILTER1== null) 
+            {
+              console.log("Filter not set - use default")
+            } else
+            {
+              console.log("Filter is set, filtering Qlik app")
+              console.log(`Filter by ${FILTERFIELD1}`);
+              console.log(`Filtering field is ${FILTER1}`);
+
+            }
+
+
             const isLoggedIn = await qlikLogin();
             const loadedCapabilitiesAssets = await loadCapabilitiesAssets();
-            const app = await doCapabilities(APPID, qlikDivSelector, qlikObjectClass);
+            const app = await doCapabilities(APPID, qlikDivSelector, qlikObjectClass,FILTERFIELD1,FILTER1);
+
+
+
+
+
+
+
+
+
+
+
         })();
 
         //    LOGIN
@@ -106,7 +137,7 @@
             );
         }
 
-        async function doCapabilities(appId, qlikDivSelector, objectClass) {
+        async function doCapabilities(appId, qlikDivSelector, objectClass, appfield, appselection) {
             var config = {
                 host: TENANT,
                 prefix: "/",
@@ -126,6 +157,15 @@
 
             requirejs(["js/qlik"], (qlik) => {
                 const app = qlik.openApp(appId, config);
+
+                	//get a field reference and clear the field selection
+                var lastNameField = app.field(appfield);
+                lastNameField.clear();
+                lastNameField.selectValues([appselection], true, true);
+
+
+
+
                 const sheetObject = app.getObject(SHEETID)
                     .then((sheetObject) => {
                         const sheetLayout = sheetObject.getLayout()
