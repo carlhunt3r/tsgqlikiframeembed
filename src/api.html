@@ -50,14 +50,8 @@
             const isLoggedIn = await qlikLogin();
             const loadedCapabilitiesAssets = await loadCapabilitiesAssets();
             const app = await doCapabilities(APPID, qlikDivSelector, qlikObjectClass,FILTERFIELD1,FILTER1);
-
-
-
-
-
-
-
-
+            
+            console.log("Ready")
 
 
 
@@ -97,7 +91,8 @@
             gridContainer.style.display = 'grid';
             gridContainer.style.gridTemplateRows = `repeat(${rows}, minmax(0, 1fr)`;
             gridContainer.style.gridTemplateColumns = `repeat(${columns}, minmax(0, 1fr))`;
-
+            
+            console.log("createGrid")
             return gridContainer;
         }
 
@@ -120,6 +115,8 @@
                 objectDiv.classList.add(addClass);
                 gridContainer.appendChild(objectDiv);
             })
+
+            console.log("constructSheet")
             return true;
         }
 
@@ -160,9 +157,11 @@
                 var lastNameField = app.field(appfield);
                 var selState = app.selectionState();
                 selState.clearAll(true);
+                console.log("Clear all selections")
 
                 lastNameField.selectValues([appselection], true, true);
-                
+                console.log("Apply selection")
+
                 app.getObject("selectionbar","CurrentSelections");
 
 
