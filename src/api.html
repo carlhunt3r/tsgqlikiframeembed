@@ -8,7 +8,7 @@
 <body>
     <div id="selectionbar" style="height:50px;"></div>
     <div id="sheet" style="height:800px;"></div>    
-
+ 
     <script>
 
         //    CONFIGURATION
@@ -31,6 +31,7 @@
             let params = new URL(document.location).searchParams;
             FILTER1 = params.get("FILTER1"); 
             FILTERFIELD1 = params.get("FILTERFIELD1");
+            
             APPID = params.get("APP"); 
             SHEETID = params.get("SHEET");
 
