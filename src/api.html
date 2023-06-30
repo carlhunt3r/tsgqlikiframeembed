@@ -14,8 +14,8 @@
         //    CONFIGURATION
         const TENANT = 'tsgltd.eu.qlikcloud.com';
         const WEBINTEGRATIONID = 'xDOabl1kUVU-kN8f-hOvlccZ3UNaFzkY';
-        const APPID = 'a96ef7c5-e2aa-4646-8a88-024340b56976';
-        const SHEETID = '8a6f9340-e824-4dfb-915a-a93c67e53b70';
+        //const APPID = 'a96ef7c5-e2aa-4646-8a88-024340b56976';
+        //const SHEETID = '8a6f9340-e824-4dfb-915a-a93c67e53b70';
         const IDENTITY = 'ID123ABC';
 
 
@@ -31,10 +31,29 @@
             let params = new URL(document.location).searchParams;
             FILTER1 = params.get("FILTER1"); 
             FILTERFIELD1 = params.get("FILTERFIELD1");
+            APPID = params.get("APP"); 
+            SHEETID = params.get("SHEET");
 
             //FILTERBY =  FILTERFIELD1; 
             //FILTERFIELD1 = 'Customer%20Name';
             
+            IF(APPID == null)
+            {
+                APPID = 'a96ef7c5-e2aa-4646-8a88-024340b56976'
+            } else {
+                console.log(`Qlik App is set dynamically ${APPID}`)
+            }
+
+            IF(SHEETID == null)
+            {
+                SHEETID = '8a6f9340-e824-4dfb-915a-a93c67e53b70'
+            } else {
+                console.log(`Qlik Sheet is set dynamically ${SHEETID}`)
+            }
+
+            
+            
+
             if(FILTER1== null) 
             {
               console.log("Filter not set - use default")
